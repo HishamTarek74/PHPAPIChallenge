@@ -22,10 +22,13 @@ Route::group(['prefix' => 'v1','middleware' => ['api'], 'namespace' => 'Api\V1']
     });
 
 });
-
+ 
+Route::apiResource('posts', 'Api\V1\Admin\PostController');
+Route::apiResource('users', 'Api\V1\Admin\UsersController'); 
 
 //Admin Routes Instaed Of checkAdminToken:admin-api
-Route::group(['prefix' => 'v1','middleware' => ['api','checkAdminToken:admin-api'], 'namespace' => 'Api\V1\Admin'], function () {
-    Route::apiResource('posts', 'PostController');
-    Route::apiResource('users', 'UsersController');  
+Route::group(['prefix' => 'v1/admin','middleware' => ['api','checkAdminToken:admin-api'], 'namespace' => 'Api\V1\Admin'], function () {
+    // Route::apiResource('posts', 'PostController');
+    // Route::apiResource('users', 'UsersController'); 
+
 });

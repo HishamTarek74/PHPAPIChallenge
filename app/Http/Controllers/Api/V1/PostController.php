@@ -5,6 +5,7 @@ use App\Models\Post;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+
 use Illuminate\Http\Request;
 use App\Http\Resources\PostResource;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,8 +25,8 @@ class PostController extends Controller
       */
      public function index($id)
      {
-        //return PostResource::collection(Post::with('user')->paginate(25));
-        return new PostResource(Post::findOrFail($id)->get());
+        $post = Post::findOrFail($id);
+        return new PostResource($post);
 
      }
    /**

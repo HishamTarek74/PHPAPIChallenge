@@ -1,8 +1,10 @@
 <?php
 
 namespace Tests\Feature;
+use App\Http\Resources\PostCollectionResource;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\User;
@@ -10,6 +12,24 @@ use App\Models\Post;
 
 class PostsTest extends TestCase
 {
+    use DatabaseMigrations;
+
+
+    //Its Tests Cases For Admin
+    public function it_git_all_posts() {
+
+        $posts = factory(Post::class,2)->create();
+        foreach($posts as $posts) {
+
+            $posts->user()->saveOne(factory(User::class,2)->create()->make());
+        }
+
+        $response = $this->get(route('posts.index'));
+        $response->assertResource(PostCollectionResource::collection($posts));
+
+    }
+
+    //Its Tests Cases For User
     public function testsPostsAreCreatedCorrectly()
     {
         $user = factory(User::class)->create();
@@ -56,7 +76,7 @@ class PostsTest extends TestCase
             ]);
     }
 
-    public function testsArtilcesAreDeletedCorrectly()
+    public function testsPostsAreDeletedCorrectly()
     {
         $user = factory(User::class)->create();
         $token = $user->generateToken();

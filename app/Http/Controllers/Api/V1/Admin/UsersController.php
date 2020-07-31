@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\UserCollectionResource;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class UsersController extends Controller
     public function index()
     {
 
-        return new UserResource(User::with(['posts'])->get());
+        return new UserCollectionResource(User::with(['posts'])->get());
     }
 
     public function store(StoreUserRequest $request)

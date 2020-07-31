@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Http\Resources\PostResource;
+use App\Http\Resources\PostCollectionResource;
 use App\Models\Post;
 
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        return new PostResource(Post::with('user')->get());
+        return new PostCollectionResource(Post::with('user')->get());
     }
 
     public function store(StorePostRequest $request)
