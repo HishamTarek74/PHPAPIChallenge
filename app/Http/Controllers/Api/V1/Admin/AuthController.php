@@ -17,11 +17,7 @@ class AuthController extends Controller
     {
 
         try {
-            $rules = [
-                "email" => "required",
-                "password" => "required"
-
-            ];
+            $rules = ["email" => "required","password" => "required"];
 
             $validator = Validator::make($request->all(), $rules);
 
